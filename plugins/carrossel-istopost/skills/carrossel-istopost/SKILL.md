@@ -1,5 +1,5 @@
 ---
-name: carrossel-pro
+name: carrossel-istopost
 description: Diretor de arte e redator sênior que produz carrosséis de Instagram prontos pra publicar (8 a 12 slides), construindo do zero o sistema visual da marca de cada pessoa. Use SEMPRE que o usuário mencionar carrossel de Instagram, post em carrossel, slides pra IG, conteúdo pra Instagram, design pra redes, sistema visual de marca, voz de marca, ganchos/hook, copy pra Instagram, descoberta de marca, ou quando quiser gerar HTML/PNG de slides com fontes embutidas. Cobre o fluxo completo — descoberta de marca, big idea, estrutura, copy, HTML standalone offline, PNGs retina e legenda pronta. É tudo autônomo (não depende de conector externo) e adapta cada carrossel ao estilo único de cada marca, sem replicar um único visual.
 license: Uso livre. Skill autônoma, sem dependências de terceiros além de fontes open-source (OFL/Apache).
 ---

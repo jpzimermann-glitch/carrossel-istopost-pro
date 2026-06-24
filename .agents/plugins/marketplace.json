@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "carrossel-pro",
+      "name": "carrossel-istopost",
       "source": {
         "source": "local",
-        "path": "./plugins/carrossel-pro"
+        "path": "./plugins/carrossel-istopost"
       },
       "policy": {
         "installation": "AVAILABLE",

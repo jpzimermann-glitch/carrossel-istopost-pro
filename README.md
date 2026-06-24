@@ -23,12 +23,12 @@ Além de tudo do editor original, esta versão acrescenta:
 ### Claude Cowork (app desktop)
 1. Configurações → Plugins → **Adicionar marketplace**.
 2. Fonte **GitHub** → informe: `jpzimermann-glitch/carrossel-istopost-pro`
-3. Instale o plugin **carrossel-pro** no catálogo.
+3. Instale o plugin **carrossel-istopost** no catálogo.
 
 ### Claude Code (terminal)
 ```bash
 /plugin marketplace add jpzimermann-glitch/carrossel-istopost-pro
-/plugin install carrossel-pro@carrossel-istopost-pro
+/plugin install carrossel-istopost@carrossel-istopost-pro
 ```
 
 ## Usar
