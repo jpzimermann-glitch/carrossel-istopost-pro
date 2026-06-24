@@ -187,6 +187,7 @@ input[type=range]{width:100%;accent-color:#6C5CE7;height:18px;cursor:pointer;}
 .notacard .nota-tx{font-size:34px;line-height:1.42;color:var(--muted);overflow-wrap:anywhere;}
 .slide.has-bg .notacard .nota-tx{color:#e8e8e8;}
 .notacard .nota-tt b{color:var(--accent);}
+.notacard .nota-tx b{color:var(--accent);font-weight:700;}
 .tweetcard.dark{color:#e7e9ea;}
 .tweetcard.dark .tw-name{color:#e7e9ea;}
 .tweetcard.dark .tw-text{color:#e7e9ea;}
@@ -554,7 +555,7 @@ function renderNota(s){
   const cs=(s.cardScale==null?100:s.cardScale)/100;
   const bg=s.cardBg||'';const dk=bg&&isDark(bg)?' dark':'';const st=bg?'background:'+bg+';':'';
   const ic = s.icone&&s.icone!=='none' ? '<div class="nota-ic">'+cardIco(s.icone,32)+'</div>' : '';
-  return '<div class="notacard'+dk+'" style="'+st+'transform:scale('+cs+');transform-origin:top left">'+ic+'<div class="nota-body">'+(s.cardTitulo?'<div class="nota-tt">'+hlText(s.cardTitulo)+'</div>':'')+(s.cardTexto?'<div class="nota-tx">'+esc(s.cardTexto)+'</div>':'')+'</div></div>';
+  return '<div class="notacard'+dk+'" style="'+st+'transform:scale('+cs+');transform-origin:top left">'+ic+'<div class="nota-body">'+(s.cardTitulo?'<div class="nota-tt">'+tweetHl(s.cardTitulo)+'</div>':'')+(s.cardTexto?'<div class="nota-tx">'+tweetHl(s.cardTexto)+'</div>':'')+'</div></div>';
 }
 function pickImg(cb){const i=el('input');i.type='file';i.accept='image/*';i.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>cb(ev.target.result);r.readAsDataURL(f);};i.click();}
 function cardIconPicker(cur,onpick){const d=el('div','iconrow');['none','lock','shield','info','alert','star','check','sparkles'].forEach(n=>{const b=el('button','ibtn'+(n===cur?' on':''),n==='none'?'—':cardIco(n,18));b.onclick=()=>onpick(n);d.appendChild(b);});return d;}
