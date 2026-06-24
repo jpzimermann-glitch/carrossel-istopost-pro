@@ -86,8 +86,9 @@
     <a href="#fundos">8. Fundos &amp; efeitos</a>
     <a href="#texto">9. Texto &amp; destaque</a>
     <a href="#ferramentas">10. Desfazer, salvar, exportar</a>
-    <a href="#fluxo">11. Fluxo ideal (insights)</a>
-    <a href="#duvidas">12. Dúvidas rápidas</a>
+    <a href="#imagemia">11. Gerar imagens com IA</a>
+    <a href="#fluxo">12. Fluxo ideal (insights)</a>
+    <a href="#duvidas">13. Dúvidas rápidas</a>
   </nav>
 
   <main>
@@ -257,8 +258,33 @@
       <div class="tip"><b>💡 Um slide só?</b> No painel direito tem <b>"Baixar este slide (PNG)"</b> pra exportar apenas o atual.</div>
     </section>
 
+    <section id="imagemia">
+      <h2><span class="em">🍌</span>11. Gerar imagens com IA (capa)</h2>
+      <p class="lead">Quer que a IA <b>crie a imagem da capa</b> pra você? Isso usa o Google Gemini ("Nano Banana") e é a única parte que precisa de uma <b>chave de API</b>. <b>Tudo o resto do editor funciona sem isso.</b></p>
+
+      <div class="warn"><b>⚠️ É opcional e pode ter custo.</b> A chave é do Google, fora do editor. Há um nível gratuito, mas uso intenso pode cobrar. Crie só se for usar a geração de imagem.</div>
+
+      <h3>Passo 1 — Pegar sua chave (grátis pra começar)</h3>
+      <div class="step"><span class="n">1</span><div>Acesse <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> e entre com sua conta Google.</div></div>
+      <div class="step"><span class="n">2</span><div>Clique em <b>"Create API key"</b> (Criar chave de API).</div></div>
+      <div class="step"><span class="n">3</span><div>Copie o código gerado (começa com <code>AIza...</code>). Guarde em lugar seguro.</div></div>
+
+      <h3>Passo 2 — Colar no editor</h3>
+      <div class="step"><span class="n">1</span><div>No editor, clique em <b>Gerar Capa IA</b> (barra de cima).</div></div>
+      <div class="step"><span class="n">2</span><div>Cole a chave no campo <b>"Chave da API do Google Gemini"</b>.</div></div>
+      <div class="step"><span class="n">3</span><div>Escolha o modelo: <b>Nano Banana Pro</b> (melhor qualidade, mais caro) ou <b>Flash</b> (mais rápido e barato).</div></div>
+
+      <h3>Passo 3 — Gerar</h3>
+      <div class="step"><span class="n">1</span><div>(Opcional) Suba uma <b>imagem de referência</b> de estilo e/ou uma <b>foto sua</b> pra ser o personagem.</div></div>
+      <div class="step"><span class="n">2</span><div>Ajuste o texto em <b>Instruções (prompt)</b> — o texto do 1º slide já entra sozinho.</div></div>
+      <div class="step"><span class="n">3</span><div>Clique em <b>Gerar capa</b>. A imagem vira um novo slide pra você ajustar.</div></div>
+
+      <div class="tip"><b>🔒 Segurança:</b> a chave fica salva <b>só no seu navegador</b> — ela <b>não</b> entra no arquivo HTML nem vai pro GitHub. Mesmo assim, não compartilhe o HTML "como está aberto" achando que a chave vai junto: ela é sua e fica no seu PC.</div>
+      <div class="insight"><b>🧠 Insight:</b> na maioria dos carrosséis você <b>não precisa</b> de imagem gerada por IA — capas tipográficas (só texto bem feito) convertem muito bem e são mais rápidas. Use a IA quando a imagem <b>agrega</b> de verdade (um personagem, uma cena), não por enfeite.</div>
+    </section>
+
     <section id="fluxo">
-      <h2><span class="em">⭐</span>11. Fluxo ideal (do jeito profissional)</h2>
+      <h2><span class="em">⭐</span>12. Fluxo ideal (do jeito profissional)</h2>
       <p class="lead">Juntando tudo, um caminho que rende carrosséis bons e rápidos:</p>
       <ol>
         <li><b>Aplique sua marca</b> (botão Marca) — já começa nas cores e @ certos.</li>
@@ -273,7 +299,7 @@
     </section>
 
     <section id="duvidas">
-      <h2><span class="em">❓</span>12. Dúvidas rápidas</h2>
+      <h2><span class="em">❓</span>13. Dúvidas rápidas</h2>
       <h3>Preciso de internet pra editar?</h3>
       <p>Não. Só a geração por IA e as fontes do Google usam internet. A edição funciona offline.</p>
       <h3>Posso ter vários carrosséis?</h3>
