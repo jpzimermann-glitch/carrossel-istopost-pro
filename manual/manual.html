@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual — Carrossel IstoPost Pro</title>
+<style>
+  :root{
+    --accent:#2D6CDF; --ink:#171a21; --muted:#5b6675; --line:#e6e8ee;
+    --bg:#f6f7fb; --card:#ffffff; --soft:#eef2fb; --ok:#1f9d6b; --warn:#e08a3c;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Inter,system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.6;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px;}
+  /* topo */
+  header.hero{background:linear-gradient(160deg,#1d2b4a,#2D6CDF);color:#fff;padding:54px 0 40px;}
+  header.hero h1{margin:0 0 8px;font-size:34px;letter-spacing:-.02em;}
+  header.hero p{margin:0;opacity:.92;font-size:17px;max-width:680px;}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);
+    padding:4px 12px;border-radius:999px;font-size:12.5px;margin-bottom:16px;}
+  /* layout */
+  .grid{display:grid;grid-template-columns:230px 1fr;gap:34px;align-items:start;}
+  nav.toc{position:sticky;top:18px;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:16px;font-size:14px;}
+  nav.toc b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px;}
+  nav.toc a{display:block;color:var(--ink);padding:5px 8px;border-radius:8px;}
+  nav.toc a:hover{background:var(--soft);text-decoration:none;}
+  main{padding:34px 0 70px;}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin:0 0 22px;}
+  section h2{margin:0 0 4px;font-size:23px;letter-spacing:-.01em;}
+  section h2 .em{font-size:22px;margin-right:8px;}
+  section h3{margin:22px 0 6px;font-size:17px;}
+  .lead{color:var(--muted);margin:.2em 0 1em;}
+  ul,ol{margin:.4em 0 .8em;padding-left:22px;}
+  li{margin:.25em 0;}
+  code,kbd{background:#eef0f6;border:1px solid #e0e3ec;border-radius:6px;padding:1px 6px;font-size:13px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  kbd{box-shadow:0 1px 0 #d3d7e2;}
+  /* callouts */
+  .tip,.warn,.insight{border-radius:12px;padding:13px 16px;margin:14px 0;font-size:14.5px;}
+  .tip{background:#eafaf2;border:1px solid #bfe9d4;}
+  .warn{background:#fff4e8;border:1px solid #f3d6b0;}
+  .insight{background:#eef2fb;border:1px solid #cdd9f5;}
+  .tip b,.warn b,.insight b{color:var(--ink);}
+  .pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px;}
+  .pill.new{background:#e6f0ff;color:#1d54b8;}
+  .pill.base{background:#f0eef6;color:#6a5aa8;}
+  /* tabela */
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);}
+  .step{display:flex;gap:12px;margin:10px 0;}
+  .step .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+  footer{color:var(--muted);font-size:13px;text-align:center;padding:26px 0 50px;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .mini{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
+  .mini h4{margin:0 0 4px;font-size:15px;}
+  .mini p{margin:0;font-size:13.5px;color:var(--muted);}
+  @media(max-width:820px){.grid{grid-template-columns:1fr;}nav.toc{position:static;}.two{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">Manual do usuário · versão 2.0</span>
+    <h1>Carrossel IstoPost Pro</h1>
+    <p>Seu criador de carrosséis de Instagram — do jeito que você construiu. Este guia explica <b>cada recurso</b>, com o passo a passo e dicas de quem vive de design. Sem pressa: leia a parte que precisar.</p>
+  </div>
+</header>
+
+<div class="wrap grid">
+
+  <nav class="toc">
+    <b>Conteúdo</b>
+    <a href="#inicio">1. Por onde começar</a>
+    <a href="#modos">2. Os 2 modos de usar</a>
+    <a href="#tela">3. A tela por partes</a>
+    <a href="#slides">4. Tipos de slide</a>
+    <a href="#estilos">5. Estilos &amp; cores</a>
+    <a href="#marca">6. Minhas marcas</a>
+    <a href="#modelos">7. Modelos prontos</a>
+    <a href="#fundos">8. Fundos &amp; efeitos</a>
+    <a href="#texto">9. Texto &amp; destaque</a>
+    <a href="#ferramentas">10. Desfazer, salvar, exportar</a>
+    <a href="#fluxo">11. Fluxo ideal (insights)</a>
+    <a href="#duvidas">12. Dúvidas rápidas</a>
+  </nav>
+
+  <main>
+
+    <section id="inicio">
+      <h2><span class="em">🚀</span>1. Por onde começar</h2>
+      <p class="lead">O Carrossel IstoPost Pro é um editor que roda no navegador. Você abre, monta os slides e exporta as imagens prontas pra postar.</p>
+      <div class="step"><span class="n">1</span><div>Abra o arquivo do editor (<code>carousel-studio.html</code>) com 2 cliques — ele abre no seu navegador, como um site.</div></div>
+      <div class="step"><span class="n">2</span><div>Ele já vem com um carrossel de exemplo. <b>Edite por cima</b> dele ou comece de um modelo.</div></div>
+      <div class="step"><span class="n">3</span><div>Quando terminar, clique em <b>Exportar ZIP</b> e suba as imagens no Instagram.</div></div>
+      <div class="tip"><b>💡 Não precisa instalar nada</b> pra editar. Tudo funciona offline, no seu navegador. Só a geração automática por IA (Modo 2) usa o plugin.</div>
+    </section>
+
+    <section id="modos">
+      <h2><span class="em">🎭</span>2. Os 2 modos de usar</h2>
+      <p class="lead">Existem duas formas de criar — escolha conforme o seu momento.</p>
+      <div class="two">
+        <div class="mini">
+          <h4>✋ Modo Manual</h4>
+          <p>Você abre o editor e monta os slides na mão. Ideal quando <b>já sabe</b> o que quer dizer. Não usa IA nem internet.</p>
+        </div>
+        <div class="mini">
+          <h4>🤖 Modo IA (plugin)</h4>
+          <p>No Claude Code/Cowork você pede <i>"cria um carrossel sobre X"</i>. O Claude escreve a copy, monta os slides e te entrega o editor já preenchido pra ajustar.</p>
+        </div>
+      </div>
+      <div class="insight"><b>🧠 Insight:</b> os dois modos se completam. Use a <b>IA pra ter um rascunho rápido</b> (estrutura + copy) e o <b>modo manual pra dar o acabamento</b> (cores da marca, destaques, ajuste fino). É assim que profissionais trabalham: a máquina faz o esqueleto, o humano faz a alma.</div>
+    </section>
+
+    <section id="tela">
+      <h2><span class="em">🖥️</span>3. A tela por partes</h2>
+      <p class="lead">A tela tem 3 áreas. Conhecê-las acelera tudo.</p>
+      <h3>Barra de cima (ferramentas globais)</h3>
+      <table>
+        <tr><th>Botão</th><th>O que faz</th></tr>
+        <tr><td><b>Marca</b> <span class="pill new">novo</span></td><td>Salva e aplica a identidade de uma marca (logo + @ + cores + fonte).</td></tr>
+        <tr><td><b>Modelos</b> <span class="pill new">novo</span></td><td>Carrega um carrossel-base pronto pra começar rápido.</td></tr>
+        <tr><td><b>Estilos</b> <span class="pill new">novo</span></td><td>Aplica um pacote de fonte + cores com 1 clique (12 opções).</td></tr>
+        <tr><td><b>Acento / Fundo / Texto / Respiro</b></td><td>As cores do carrossel. Cada uma tem uma caixinha pra colar o <b>código hex</b> da marca. <span class="pill new">hex novo</span></td></tr>
+        <tr><td><b>Auto</b> <span class="pill new">novo</span></td><td>Deixa o texto claro ou escuro sozinho, conforme o fundo (sempre legível).</td></tr>
+        <tr><td><b>↶ ↷</b> <span class="pill new">novo</span></td><td>Desfazer / Refazer (também <kbd>Ctrl</kbd>+<kbd>Z</kbd> e <kbd>Ctrl</kbd>+<kbd>Y</kbd>).</td></tr>
+        <tr><td><b>↺</b></td><td>Recomeça do template (apaga a sessão salva). Cuidado!</td></tr>
+        <tr><td><b>Gerar Capa IA</b></td><td>Cria uma imagem de capa com IA (precisa de chave do Gemini).</td></tr>
+        <tr><td><b>Exportar ZIP</b></td><td>Baixa todos os slides como imagens PNG num arquivo .zip.</td></tr>
+      </table>
+      <h3>Coluna da esquerda (os slides)</h3>
+      <p>Mostra as miniaturas de cada slide. Clique pra selecionar. <b>Arraste</b> pra mudar a ordem.</p>
+      <h3>Painel da direita (edição do slide selecionado)</h3>
+      <p>Tudo do slide atual: tipo, textos, posição, tamanhos, cores e mais. É aqui que você passa a maior parte do tempo.</p>
+      <div class="tip"><b>💡 Salvo automaticamente:</b> repare no <b>"Salvo"</b> (bolinha verde) na barra. O editor guarda sozinho no navegador — se fechar e abrir, seu trabalho continua lá.</div>
+    </section>
+
+    <section id="slides">
+      <h2><span class="em">🧩</span>4. Tipos de slide</h2>
+      <p class="lead">No painel direito, em <b>"Tipo do slide"</b>, você escolhe o formato de cada um. Misture à vontade.</p>
+      <table>
+        <tr><th>Tipo</th><th>Pra que serve</th></tr>
+        <tr><td><b>Capa</b></td><td>O 1º slide. Gancho forte + subtítulo. É o que faz a pessoa parar de rolar.</td></tr>
+        <tr><td><b>Passo</b></td><td>Título + um parágrafo. O "burro de carga" do carrossel — explica ideias.</td></tr>
+        <tr><td><b>Citação</b></td><td>Frase de destaque com aspas + autor. Ótimo pra impacto e compartilhamento.</td></tr>
+        <tr><td><b>Lista</b></td><td>Vários itens com marcador. Bom pra "5 passos", "checklist".</td></tr>
+        <tr><td><b>Número / Stat</b></td><td>Um número GIGANTE + rótulo. Prova social, resultado, dado de impacto.</td></tr>
+        <tr><td><b>CTA</b></td><td>Chamada pra ação no fim ("Salva", "Me segue", "Chama na DM").</td></tr>
+        <tr><td><b>Tweet / Post</b></td><td>Imita um post de rede social. Bom pra depoimento ou prova.</td></tr>
+        <tr><td><b>Nota / Aviso</b></td><td>Um cartão de destaque com ícone. Dica, alerta, observação.</td></tr>
+        <tr><td><b>Imagem / IA</b></td><td>Slide focado em imagem (foto, print ou capa gerada por IA).</td></tr>
+      </table>
+      <div class="insight"><b>🧠 Insight de estrutura:</b> um carrossel que converte costuma seguir <b>Capa (gancho) → Passos (desenvolvimento) → Stat/Citação (prova) → CTA (ação)</b>. Comece pela dor, entregue valor no meio, peça a ação no fim.</div>
+    </section>
+
+    <section id="estilos">
+      <h2><span class="em">🎨</span>5. Estilos &amp; cores</h2>
+      <p class="lead">A identidade visual em segundos.</p>
+      <h3>Estilos prontos <span class="pill new">novo</span></h3>
+      <p>Botão <b>Estilos</b> → 12 pacotes de <b>fonte + cores</b> (Editorial Terra, Clean Azul, Noite Neon, Luxo Dourado, Roxo Criativo, Vintage Jornal e mais). Clique e o carrossel inteiro muda.</p>
+      <h3>Meus estilos <span class="pill new">novo</span></h3>
+      <div class="step"><span class="n">1</span><div>Ajuste as cores e a fonte do seu jeito.</div></div>
+      <div class="step"><span class="n">2</span><div>Em <b>Estilos</b> → <b>+ Salvar estilo atual</b> → dê um nome.</div></div>
+      <div class="step"><span class="n">3</span><div>Pronto: seu visual fica guardado e você reaplica com 1 clique. Apaga no <b>×</b>.</div></div>
+      <h3>As 4 cores</h3>
+      <ul>
+        <li><b>Acento</b> — a cor da marca. Aparece nos destaques, linhas, setas e botões.</li>
+        <li><b>Fundo</b> — o fundo dos slides.</li>
+        <li><b>Texto</b> — a cor das letras.</li>
+        <li><b>Respiro</b> — fundo claro usado em slides marcados como "respiro".</li>
+      </ul>
+      <h3>Código hexadecimal <span class="pill new">novo</span></h3>
+      <p>Cada cor tem uma caixinha (ex: <code>#2D6CDF</code>). Marcas entregam as cores nesse formato — é só <b>colar</b> o código e a cor fica idêntica à oficial.</p>
+      <div class="tip"><b>💡 O que é hex?</b> É um código de 6 caracteres começando com <code>#</code> que representa uma cor exata. Ex: <code>#000000</code> = preto, <code>#FFFFFF</code> = branco. Guarde os hex da sua marca — são a "impressão digital" das suas cores.</div>
+      <div class="insight"><b>🧠 Insight de cor:</b> menos é mais. Use <b>1 cor de acento forte</b> e deixe fundo/texto neutros. Carrosséis com muitas cores parecem amadores; com uma cor bem usada, parecem marca.</div>
+    </section>
+
+    <section id="marca">
+      <h2><span class="em">🏷️</span>6. Minhas marcas <span class="pill new">novo</span></h2>
+      <p class="lead">Trabalha com mais de uma marca? Guarde cada uma e troque com 1 clique.</p>
+      <h3>O que um kit de marca guarda</h3>
+      <ul>
+        <li>🖼️ <b>Logo</b> (imagem) e onde ele aparece</li>
+        <li>📛 <b>@</b> do Instagram</li>
+        <li>🎨 <b>Cores</b> (acento, fundo, texto, respiro)</li>
+        <li>🔤 <b>Fonte</b></li>
+      </ul>
+      <h3>Como criar (você faz sozinho, sempre)</h3>
+      <div class="step"><span class="n">1</span><div>Monte a identidade: suba o logo (seção <b>Logo de perfil</b>), digite o <b>@</b> e escolha as cores.</div></div>
+      <div class="step"><span class="n">2</span><div>Clique em <b>Marca</b> → <b>+ Salvar marca atual</b> → nomeie (ex: <i>IstoPost</i>).</div></div>
+      <div class="step"><span class="n">3</span><div>Pra usar: abra <b>Marca</b> e clique no card. Tudo volta na hora. Apaga no <b>×</b>.</div></div>
+      <div class="warn"><b>⚠️ Logo:</b> use PNG <b>com fundo transparente</b> e leve (até ~300 KB). Logo muito pesado pode não caber no armazenamento do navegador.</div>
+      <div class="insight"><b>🧠 Insight:</b> crie um kit por cliente. Assim, ao trocar de projeto, você não "reconfigura" nada — só clica na marca e já começa no padrão certo. Consistência visual = marca mais forte.</div>
+    </section>
+
+    <section id="modelos">
+      <h2><span class="em">📚</span>7. Modelos prontos <span class="pill new">novo</span></h2>
+      <p class="lead">6 carrosséis-base pra não começar do zero.</p>
+      <table>
+        <tr><th>Modelo</th><th>Quando usar</th></tr>
+        <tr><td><b>5 Dicas Rápidas</b></td><td>Conteúdo educativo, listão de dicas.</td></tr>
+        <tr><td><b>Mitos x Verdades</b></td><td>Quebrar objeções do seu nicho.</td></tr>
+        <tr><td><b>Tutorial Passo a Passo</b></td><td>Ensinar um processo do início ao fim.</td></tr>
+        <tr><td><b>Caso de Sucesso</b></td><td>Storytelling com resultado e número.</td></tr>
+        <tr><td><b>Frases de Impacto</b></td><td>Citações fortes, alto compartilhamento.</td></tr>
+        <tr><td><b>Oferta / Promoção</b></td><td>Apresentar produto/serviço e chamar pra ação.</td></tr>
+      </table>
+      <p>Botão <b>Modelos</b> → clique num modelo → ele carrega com textos de exemplo entre <code>[colchetes]</code>. É só trocar pelos seus.</p>
+      <div class="tip"><b>💡 Errou o modelo?</b> Sem medo: <kbd>Ctrl</kbd>+<kbd>Z</kbd> desfaz e volta o que estava antes.</div>
+    </section>
+
+    <section id="fundos">
+      <h2><span class="em">🌈</span>8. Fundos &amp; efeitos</h2>
+      <p class="lead">No painel direito, seção <b>Fundo do slide / Imagem de fundo</b>.</p>
+      <h3>Opções de fundo</h3>
+      <ul>
+        <li><b>Cor sólida</b> — o padrão (usa a cor "Fundo" ou uma cor própria do slide).</li>
+        <li><b>Imagem de fundo</b> — suba uma foto/print; ajuste zoom, posição e escurecimento (overlay).</li>
+        <li><b>Padrão sobre o fundo</b> — textura sutil: pontos, grade ou linhas diagonais.</li>
+        <li><b>Efeito de fundo</b> <span class="pill new">novo</span> — gradiente, gradiente forte ou brilho/spotlight, usando a cor de acento.</li>
+      </ul>
+      <div class="insight"><b>🧠 Insight:</b> fundo chapado é seguro, mas um <b>gradiente sutil ou spotlight</b> dá profundidade e ar de "premium" sem atrapalhar a leitura. Use efeito leve em capas e CTAs; nos slides de texto, prefira fundo limpo.</div>
+      <div class="warn"><b>⚠️ Atenção ao "Slide de respiro":</b> ele força texto escuro. Se você usar um fundo escuro nesse slide, o texto some. Solução: desmarque <b>"Slide de respiro"</b> ou clique em <b>Auto</b>.</div>
+    </section>
+
+    <section id="texto">
+      <h2><span class="em">✍️</span>9. Texto &amp; destaque</h2>
+      <p class="lead">O conteúdo é editado nos campos do painel direito.</p>
+      <h3>Editar e dimensionar</h3>
+      <ul>
+        <li>Campos como <b>Kicker</b> (rótulo de cima), <b>Título</b>, <b>Subtítulo</b>, <b>Corpo</b>.</li>
+        <li>Controle <b>tamanho</b>, <b>fonte</b>, <b>peso</b> e <b>espaçamento</b> de cada parte.</li>
+        <li><b>Posição</b>: a gradezinha (Sup./Meio/Inf. × Esq./Centro/Dir.) move o conteúdo no slide.</li>
+      </ul>
+      <h3>Contador de caracteres <span class="pill new">novo</span></h3>
+      <p>Abaixo dos campos grandes aparece <b>"X caracteres"</b>. Passou de 200, fica laranja: <i>"pode estourar o slide"</i>.</p>
+      <h3>Destaque de palavra</h3>
+      <p>Na seção <b>"Destaque de palavra"</b>, clique numa palavra pra realçá-la na <b>cor de acento</b>. Serve pra fazer a palavra-chave saltar.</p>
+      <div class="insight"><b>🧠 Insight de copy:</b> destaque <b>1 a 3 palavras por slide</b>, no máximo. Realce o <i>benefício</i> ou a <i>emoção</i> ("ganhe <b>tempo</b>", "pare de <b>perder</b> clientes"), não palavras neutras. Destaque demais = nada se destaca.</div>
+    </section>
+
+    <section id="ferramentas">
+      <h2><span class="em">🧰</span>10. Desfazer, salvar e exportar</h2>
+      <h3>Desfazer / Refazer <span class="pill new">novo</span></h3>
+      <p>Botões <b>↶ ↷</b> ou <kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>Ctrl</kbd>+<kbd>Y</kbd>. Guarda até 60 passos. Dentro de um campo de texto, o <kbd>Ctrl</kbd>+<kbd>Z</kbd> desfaz a digitação normalmente.</p>
+      <h3>Salvar / Importar (JSON)</h3>
+      <p><b>Salvar JSON</b> guarda o projeto num arquivo; <b>Importar JSON</b> traz de volta. Útil pra ter backup ou continuar noutro dia/PC.</p>
+      <h3>Exportar para o Instagram</h3>
+      <div class="step"><span class="n">1</span><div>Escolha o <b>formato</b> (4:5 retrato, 1:1 quadrado ou 9:16 stories).</div></div>
+      <div class="step"><span class="n">2</span><div>Clique em <b>Exportar ZIP</b> — baixa todas as imagens PNG.</div></div>
+      <div class="step"><span class="n">3</span><div>Descompacte e suba no Instagram, na ordem. Pronto! ✅</div></div>
+      <div class="tip"><b>💡 Um slide só?</b> No painel direito tem <b>"Baixar este slide (PNG)"</b> pra exportar apenas o atual.</div>
+    </section>
+
+    <section id="fluxo">
+      <h2><span class="em">⭐</span>11. Fluxo ideal (do jeito profissional)</h2>
+      <p class="lead">Juntando tudo, um caminho que rende carrosséis bons e rápidos:</p>
+      <ol>
+        <li><b>Aplique sua marca</b> (botão Marca) — já começa nas cores e @ certos.</li>
+        <li><b>Escolha um modelo</b> ou peça um rascunho pra IA.</li>
+        <li><b>Escreva a copy</b> — gancho na capa, 1 ideia por slide, CTA no fim.</li>
+        <li><b>Ajuste o visual</b> — destaque 1-2 palavras por slide, cheque o contador.</li>
+        <li><b>Refine o fundo</b> — efeito leve na capa/CTA, limpo no miolo.</li>
+        <li><b>Revise</b> — leia em voz alta, confira números e nomes.</li>
+        <li><b>Exporte</b> em ZIP e publique.</li>
+      </ol>
+      <div class="insight"><b>🧠 Insight final:</b> o melhor carrossel não é o mais bonito — é o <b>mais claro</b>. Se um slide precisa de explicação, divida em dois. Ritmo de leitura &gt; enfeite. As ferramentas aqui servem pra isso: deixar a mensagem respirar.</div>
+    </section>
+
+    <section id="duvidas">
+      <h2><span class="em">❓</span>12. Dúvidas rápidas</h2>
+      <h3>Preciso de internet pra editar?</h3>
+      <p>Não. Só a geração por IA e as fontes do Google usam internet. A edição funciona offline.</p>
+      <h3>Posso ter vários carrosséis?</h3>
+      <p>Sim. Salve cada um em <b>JSON</b> e importe quando quiser. O editor também guarda o último automaticamente.</p>
+      <h3>Mudei a cor de Acento e mudou tudo. Normal?</h3>
+      <p>Sim — o Acento colore destaques, linhas, setas e botões de propósito, pra manter a marca harmônica.</p>
+      <h3>Como começo um carrossel do zero (sem modelo)?</h3>
+      <p>Edite os textos do slide atual, use <b>+ Slide</b> pra adicionar, escolha o <b>Tipo</b> de cada um e <b>Remover</b> os que sobram.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    Carrossel IstoPost Pro · Manual do usuário · por João Paulo Zimermann<br>
+    Baseado no carrossel-pro de Helio Arreche (MIT).
+  </div>
+</footer>
+
+</body>
+</html>
