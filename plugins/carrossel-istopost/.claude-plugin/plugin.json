@@ -1,6 +1,6 @@
 {
   "name": "carrossel-istopost",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Versao IstoPost (personalizada por Joao Paulo, baseada no carrossel-pro de Helio Arreche - MIT). Cria carrosseis de Instagram e ENTREGA o editor Carousel Studio turbinado: presets de estilo, salvar marca, cor automatica, contador, efeitos de fundo, desfazer/refazer, biblioteca de modelos, entrada por hex e exportacao em ZIP.",
   "author": {
     "name": "Joao Paulo Zimermann"

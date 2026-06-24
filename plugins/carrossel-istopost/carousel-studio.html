@@ -538,8 +538,8 @@ const CARD_ICONS={lock:'M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4',shield:'M12 2l8 3
 function cardIco(name,size){size=size||30;const p=CARD_ICONS[name];if(!p)return '';return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="'+p+'"/></svg>';}
 const TW_VERIF='<svg class="tw-badge" width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"/></svg>';
 const TW_MET=[['reply','M21 11.5a8 8 0 0 1-11 7L3 20l1.5-7A8 8 0 1 1 21 11.5z'],['rt','M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3'],['like','M12 21s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z'],['view','M3 3v18h18M7 14l4-4 3 3 5-6']];
-function tweetHl(t){ // **palavra** vira accent
-  return esc(String(t==null?'':t)).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>');
+function tweetHl(t){ // **palavra** vira accent; respeita quebras de linha
+  return esc(String(t==null?'':t)).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
 }
 function renderTweet(s){
   const cs=(s.cardScale==null?100:s.cardScale)/100;
@@ -742,8 +742,11 @@ function chk(label,val,onchange){
 }
 function hlText(text, idxs){
   const set=new Set(idxs||[]);
-  const words=String(text==null?'':text).split(/\s+/).filter(w=>w.length);
-  return words.map((w,i)=>set.has(i)?('<span style="color:var(--accent)">'+esc(w)+'</span>'):esc(w)).join(' ');
+  let wi=0; // indice global de palavra (mantem o destaque por clique funcionando entre linhas)
+  return String(text==null?'':text).split('\n').map(line=>{
+    const words=line.split(/[ \t]+/).filter(w=>w.length);
+    return words.map(w=>{const cur=wi++;return set.has(cur)?('<span style="color:var(--accent)">'+esc(w)+'</span>'):esc(w);}).join(' ');
+  }).join('<br>');
 }
 const natCache={};
 function applyBg(e,s,idx,total){
