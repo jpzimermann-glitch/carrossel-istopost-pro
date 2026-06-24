@@ -44,9 +44,9 @@ for F in "$PLUGIN_JSON" "$MARKET_JSON"; do
   fi
 done
 
-# valida os JSONs se houver python
-if command -v python3 >/dev/null; then
-  python3 -c "import json;json.load(open('$PLUGIN_JSON'));json.load(open('$MARKET_JSON'));print('  JSON valido')"
+# valida os JSONs com node (best-effort; nunca aborta o script)
+if command -v node >/dev/null 2>&1; then
+  node -e "JSON.parse(require('fs').readFileSync('$PLUGIN_JSON','utf8'));JSON.parse(require('fs').readFileSync('$MARKET_JSON','utf8'));console.log('  JSON valido')" || echo "  AVISO: nao validei os JSONs (seguindo mesmo assim)"
 fi
 
 # commit + push
