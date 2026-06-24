@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Sobe a versao do plugin carrossel-pro e publica no GitHub.
+# Sobe a versao do plugin carrossel-istopost e publica no GitHub.
 # Uso:
 #   ./atualizar.sh            -> sobe o patch (1.6.0 -> 1.6.1)
 #   ./atualizar.sh minor      -> sobe o minor (1.6.0 -> 1.7.0)
@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-PLUGIN_JSON="plugins/carrossel-pro/.claude-plugin/plugin.json"
+PLUGIN_JSON="plugins/carrossel-istopost/.claude-plugin/plugin.json"
 MARKET_JSON=".claude-plugin/marketplace.json"
 
 [ -f "$PLUGIN_JSON" ] || { echo "ERRO: rode o script na raiz do repositorio (nao achei $PLUGIN_JSON)."; exit 1; }
@@ -54,7 +54,7 @@ git add -A
 if git diff --cached --quiet; then
   echo "Nada pra commitar."; exit 0
 fi
-git commit -m "carrossel-pro v$NEW"
+git commit -m "carrossel-istopost v$NEW"
 echo "Enviando pro GitHub..."
 git push
 echo ""

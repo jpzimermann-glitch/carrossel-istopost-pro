@@ -88,7 +88,8 @@
     <a href="#ferramentas">10. Desfazer, salvar, exportar</a>
     <a href="#imagemia">11. Gerar imagens com IA</a>
     <a href="#fluxo">12. Fluxo ideal (insights)</a>
-    <a href="#duvidas">13. Dúvidas rápidas</a>
+    <a href="#atualizar">13. Instalar e atualizar</a>
+    <a href="#duvidas">14. Dúvidas rápidas</a>
   </nav>
 
   <main>
@@ -298,8 +299,30 @@
       <div class="insight"><b>🧠 Insight final:</b> o melhor carrossel não é o mais bonito — é o <b>mais claro</b>. Se um slide precisa de explicação, divida em dois. Ritmo de leitura &gt; enfeite. As ferramentas aqui servem pra isso: deixar a mensagem respirar.</div>
     </section>
 
+    <section id="atualizar">
+      <h2><span class="em">🔄</span>13. Instalar e atualizar o plugin</h2>
+      <p class="lead">Além de abrir o arquivo na mão, você pode instalar como plugin no <b>Claude Code / Cowork</b> e pedir carrosséis por prompt (Modo IA).</p>
+
+      <h3>Instalar (uma vez só)</h3>
+      <p><b>Claude Code (terminal):</b></p>
+      <pre style="background:#0f1320;color:#e7e7ee;padding:14px 16px;border-radius:10px;overflow:auto;font-size:13px;"><code>/plugin marketplace add jpzimermann-glitch/carrossel-istopost-pro
+/plugin install carrossel-istopost@carrossel-istopost-pro</code></pre>
+      <p><b>Cowork (app):</b> Configurações → Plugins → Adicionar marketplace → GitHub → <code>jpzimermann-glitch/carrossel-istopost-pro</code> → instalar <b>carrossel-istopost</b>.</p>
+
+      <h3>Usar depois de instalado</h3>
+      <p>Digite <code>/carrossel-istopost</code> ou simplesmente peça: <i>"cria um carrossel sobre X"</i>.</p>
+
+      <h3>Atualizar (quando mudar algo no plugin)</h3>
+      <div class="step"><span class="n">1</span><div><b>Edite</b> o que precisar (ex: o editor).</div></div>
+      <div class="step"><span class="n">2</span><div>Na raiz do projeto, rode o atalho que sobe a versão, salva e publica:<br><code>./atualizar.sh</code> (pequena) · <code>./atualizar.sh minor</code> · <code>./atualizar.sh major</code></div></div>
+      <div class="step"><span class="n">3</span><div>No Claude, puxe a nova versão:<br>• Claude Code: <code>/plugin marketplace update</code><br>• Cowork: botão de atualizar/refresh nos plugins</div></div>
+
+      <div class="tip"><b>💡 Em uma frase:</b> edita → <code>./atualizar.sh</code> → atualiza no Claude. As versões seguem o padrão <b>X.Y.Z</b> (ex: 2.0.0): o último número sobe em correções, o do meio em novidades, o primeiro em mudanças grandes.</div>
+      <div class="insight"><b>🧠 Insight:</b> o editor sozinho (abrir o HTML) <b>não precisa de atualização</b> — é só usar o arquivo. A instalação/atualização do plugin só importa pro <b>Modo IA</b> (gerar por prompt no Claude).</div>
+    </section>
+
     <section id="duvidas">
-      <h2><span class="em">❓</span>13. Dúvidas rápidas</h2>
+      <h2><span class="em">❓</span>14. Dúvidas rápidas</h2>
       <h3>Preciso de internet pra editar?</h3>
       <p>Não. Só a geração por IA e as fontes do Google usam internet. A edição funciona offline.</p>
       <h3>Posso ter vários carrosséis?</h3>
