@@ -956,6 +956,7 @@ function decorate(e,s,idx,total){
   if(g.logoUri && g.logoScope!=='none' && g.logoPos!=='none'){
     const show=g.logoScope==='all'||(g.logoScope==='slide1'&&idx===0);
     if(show){const im=document.createElement('img');im.className='clogo';im.src=g.logoUri;const ins=Math.max(48,inset-12);
+      const ls=(g.logoSize==null?100:g.logoSize)/100; im.style.maxWidth=(240*ls)+'px'; im.style.maxHeight=(120*ls)+'px';
       if(g.logoPos==='se'){im.style.top=ins+'px';im.style.left=ins+'px';}
       else if(g.logoPos==='sd'){im.style.top=ins+'px';im.style.right=ins+'px';}
       else if(g.logoPos==='ie'){im.style.bottom=ins+'px';im.style.left=ins+'px';}
@@ -1040,6 +1041,7 @@ function logoBadgePanel(insp){
     box.appendChild(segmented([['none','Não'],['se','S.E'],['sd','S.D'],['ie','I.E'],['id','I.D']],g.logoPos,v=>{g.logoPos=v;renderMain();renderRail();}));
     box.appendChild(glabel('Exibir em'));
     box.appendChild(segmented([['slide1','Slide 1'],['all','Todos'],['none','Nenhum']],g.logoScope,v=>{g.logoScope=v;renderMain();renderRail();}));
+    box.appendChild(slider('Tamanho do logo',40,250,5,g.logoSize==null?100:g.logoSize,v=>v+'%',v=>{g.logoSize=v;renderMain();renderRail();}));
     const rm=el('button','btn','<svg class="uimi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>Remover logo');rm.style.width='100%';rm.style.marginTop='8px';rm.onclick=()=>{g.logoUri=null;renderMain();renderRail();renderInspector();};box.appendChild(rm);
   }
 }
