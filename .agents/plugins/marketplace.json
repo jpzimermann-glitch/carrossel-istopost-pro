@@ -1,0 +1,20 @@
+{
+  "name": "carrossel-istopost-pro",
+  "interface": {
+    "displayName": "Carrossel IstoPost Pro"
+  },
+  "plugins": [
+    {
+      "name": "carrossel-pro",
+      "source": {
+        "source": "local",
+        "path": "./plugins/carrossel-pro"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

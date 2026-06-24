@@ -1,0 +1,29 @@
+{
+  "name": "carrossel-istopost-pro",
+  "owner": {
+    "name": "João Paulo Zimermann",
+    "email": "jpzimermann@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "carrossel-pro",
+      "source": "./plugins/carrossel-pro",
+      "description": "Versão personalizada (IstoPost) — cria carrosséis de Instagram prontos pra publicar e entrega o editor Carousel Studio turbinado: presets de estilo, salvar marca, cor automática, contador, efeitos de fundo, desfazer/refazer, biblioteca de modelos, entrada por hex e exportação em ZIP. Baseado no carrossel-pro de Helio Arreche (MIT).",
+      "version": "2.0.0",
+      "author": {
+        "name": "João Paulo Zimermann"
+      },
+      "homepage": "https://github.com/jpzimermann-glitch/carrossel-istopost-pro",
+      "license": "MIT",
+      "keywords": [
+        "instagram",
+        "carrossel",
+        "carousel",
+        "design",
+        "marketing",
+        "social-media"
+      ],
+      "category": "productivity"
+    }
+  ]
+}
