@@ -147,6 +147,8 @@ input[type=range]{width:100%;accent-color:#6C5CE7;height:18px;cursor:pointer;}
 .cdot{width:14px;height:14px;border-radius:50%;background:currentColor;opacity:.32;}
 .cdot.on{opacity:1;}
 .clogo{position:absolute;z-index:7;max-width:240px;max-height:120px;object-fit:contain;}
+.cimg-wrap{display:inline-block;margin-top:24px;line-height:0;}
+.cimg-ph{display:flex;align-items:center;justify-content:center;text-align:center;min-height:300px;margin-top:24px;color:var(--muted);font-family:var(--f-mono);font-size:24px;border:2px dashed rgba(128,128,128,.5);padding:30px;box-sizing:border-box;}
 .iconrow{display:flex;gap:6px;flex-wrap:wrap;}
 .ibtn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#1b1b22;border:1px solid #34343f;color:#cfcfd6;border-radius:8px;cursor:pointer;}
 .ibtn:hover{background:#26262f;}
@@ -503,12 +505,14 @@ const SF={
   stat:{tcls:'stat',scls:'body',tkey:'numero',skey:'corpo',tSize:280,sSize:42,tSpace:0,lh:0.9},
   cta:{tcls:'cta',scls:'sub',tkey:'titulo',skey:'sub',tSize:96,sSize:40,tSpace:0,lh:1.02},
   tweet:{tcls:'h2',scls:'sub',tkey:'titulo',skey:'sub',tSize:84,sSize:36,tSpace:-0.01,lh:1.04,vpos:'sup'},
-  nota:{tcls:'h2',scls:'sub',tkey:'titulo',skey:'sub',tSize:84,sSize:36,tSpace:-0.01,lh:1.04,vpos:'sup'}
+  nota:{tcls:'h2',scls:'sub',tkey:'titulo',skey:'sub',tSize:84,sSize:36,tSpace:-0.01,lh:1.04,vpos:'sup'},
+  imgcentral:{tcls:'h2',scls:null,tkey:'titulo',skey:null,tSize:72,sSize:36,tSpace:-0.01,lh:1.05,vpos:'sup'}
 };
 function fxDefaults(s){
   const K=KITS[data.kit]||KITS.editorial;
   const f=SF[(s&&s.tipo)]||SF.capa;
-  return {vpos:f.vpos||'inf',hpos:'esq',align:'esq',glass:false,card:false,badge:false,scale:100,gap:28,
+  const _ic=(s&&s.tipo==='imgcentral');
+  return {vpos:f.vpos||'inf',hpos:_ic?'centro':'esq',align:_ic?'centro':'esq',glass:false,card:false,badge:false,scale:100,gap:28,
     tSize:f.tSize,tFont:K.disp,tWeight:800,tColor:'',tSpace:f.tSpace,
     sSize:f.sSize,sFont:K.body,sWeight:400,sColor:'',sSpace:0,lh:f.lh};
 }
@@ -558,6 +562,24 @@ function renderNota(s){
   return '<div class="notacard'+dk+'" style="'+st+'transform:scale('+cs+');transform-origin:top left">'+ic+'<div class="nota-body">'+(s.cardTitulo?'<div class="nota-tt">'+tweetHl(s.cardTitulo)+'</div>':'')+(s.cardTexto?'<div class="nota-tx">'+tweetHl(s.cardTexto)+'</div>':'')+'</div></div>';
 }
 function pickImg(cb){const i=el('input');i.type='file';i.accept='image/*';i.onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>cb(ev.target.result);r.readAsDataURL(f);};i.click();}
+function imgCentralPanel(insp,s,upd){
+  insp.appendChild(glabel('Imagem central'));
+  const row=el('div','seg');row.style.gridTemplateColumns='1fr 1fr';
+  const up=el('button','btn','<svg class="uimi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>Enviar');
+  const rm=el('button','btn','<svg class="uimi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>Remover');
+  row.appendChild(up);row.appendChild(rm);insp.appendChild(row);
+  up.onclick=()=>pickImg(u=>{s.ci_uri=u;upd();renderInspector();});
+  rm.onclick=()=>{delete s.ci_uri;upd();renderInspector();};
+  insp.appendChild(el('p','hint','A imagem fica centralizada no slide. Use PNG/JPG. O título fica acima dela.'));
+  insp.appendChild(slider('Tamanho da imagem',30,100,1,s.ciSize==null?100:s.ciSize,v=>v+'%',v=>{s.ciSize=v;upd();}));
+  insp.appendChild(slider('Cantos arredondados',0,80,1,s.ciRadius==null?22:s.ciRadius,v=>v+'px',v=>{s.ciRadius=v;upd();}));
+  insp.appendChild(chk('Moldura (borda)',s.ciFrame!==false,v=>{s.ciFrame=v;upd();renderInspector();}));
+  if(s.ciFrame!==false){
+    insp.appendChild(slider('Espessura da moldura',0,24,1,s.ciFrameW==null?6:s.ciFrameW,v=>v+'px',v=>{s.ciFrameW=v;upd();}));
+    colorField(insp,'Cor da moldura',s,'ciFrameColor','#000000',upd);
+  }
+  insp.appendChild(chk('Sombra',s.ciShadow!==false,v=>{s.ciShadow=v;upd();}));
+}
 function cardIconPicker(cur,onpick){const d=el('div','iconrow');['none','lock','shield','info','alert','star','check','sparkles'].forEach(n=>{const b=el('button','ibtn'+(n===cur?' on':''),n==='none'?'—':cardIco(n,18));b.onclick=()=>onpick(n);d.appendChild(b);});return d;}
 
 function colorField(insp,label,s,key,def,upd){
@@ -575,6 +597,20 @@ function applyGhost(e,s){
   const w=(s.ghostWidth==null?2:s.ghostWidth);
   if(s.ghostFill){ g.style.color=col; g.style.webkitTextStroke='0px transparent'; }
   else { g.style.color='transparent'; g.style.webkitTextStroke=w+'px '+col; }
+}
+function imgCentralHtml(s){
+  const size=(s.ciSize==null?100:s.ciSize);
+  const rad=(s.ciRadius==null?22:s.ciRadius);
+  const frame=s.ciFrame!==false;
+  const fw=(s.ciFrameW==null?6:s.ciFrameW);
+  const fc=s.ciFrameColor||'#000000';
+  const shadow=s.ciShadow!==false;
+  const border=frame?('border:'+fw+'px solid '+fc+';'):'';
+  const sh=shadow?'box-shadow:0 30px 60px rgba(0,0,0,.35);':'';
+  if(!s.ci_uri){
+    return '<div class="cimg-ph" style="width:'+size+'%;max-width:100%;border-radius:'+rad+'px;'+border+'">Adicione uma imagem no painel à direita →</div>';
+  }
+  return '<div class="cimg-wrap" style="width:'+size+'%;max-width:100%"><img src="'+s.ci_uri+'" style="display:block;width:100%;border-radius:'+rad+'px;'+border+sh+'object-fit:cover"></div>';
 }
 function isDark(hex){hex=String(hex||'').replace('#','');if(hex.length===3)hex=hex.split('').map(c=>c+c).join('');const r=parseInt(hex.substr(0,2),16),g=parseInt(hex.substr(2,2),16),b=parseInt(hex.substr(4,2),16);if(isNaN(r))return false;return (0.2126*r+0.7152*g+0.0722*b)<140;}
 function cardColorField(insp,s,upd,def){
@@ -601,6 +637,7 @@ function slideInner(s, idx, total){
     case 'cta': c=`<div class="content"><div class="cta">${hlText(s.titulo,s.hlT)}</div>${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${s.acao?`<div class="acao">${esc(s.acao)}</div>`:''}</div>`;break;
     case 'tweet': c=`<div class="content cardcontent">${s.kicker?`<div class="kicker">${esc(s.kicker)}</div>`:''}${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${renderTweet(s)}</div>`;break;
     case 'nota': c=`<div class="content cardcontent">${s.kicker?`<div class="kicker">${esc(s.kicker)}</div>`:''}${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${renderNota(s)}</div>`;break;
+    case 'imgcentral': c=`<div class="content">${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${imgCentralHtml(s)}</div>`;break;
     default: c=`<div class="content"><div class="body">tipo "${esc(s.tipo)}"</div></div>`;
   }
   return ghostHtml+shade+c;
@@ -1055,7 +1092,7 @@ function renderInspector(){
   insp.appendChild(el('h3',null,`Slide ${current+1} de ${data.slides.length}`));
   insp.appendChild(el('span','typetag',esc(s.tipo)));
   const tsel=el('div','field');tsel.appendChild(el('label',null,'Tipo do slide'));
-  tsel.appendChild(selOf([['capa','Capa'],['passo','Passo'],['insight','Citação'],['lista','Lista'],['stat','Número / Stat'],['cta','CTA'],['tweet','Tweet / Post'],['nota','Nota / Aviso'],['imagem','Imagem / IA']],s.tipo,v=>{s.tipo=v;delete s.fx;renderMain();renderRail();renderInspector();}));
+  tsel.appendChild(selOf([['capa','Capa'],['passo','Passo'],['insight','Citação'],['lista','Lista'],['stat','Número / Stat'],['cta','CTA'],['tweet','Tweet / Post'],['nota','Nota / Aviso'],['imgcentral','Imagem central'],['imagem','Imagem / IA']],s.tipo,v=>{s.tipo=v;delete s.fx;renderMain();renderRail();renderInspector();}));
   insp.appendChild(tsel);
   const acts=el('div','seg');acts.style.gridTemplateColumns='1fr 1fr 1fr';
   const bAdd=el('button','btn','+ Slide');const bDup=el('button','btn','Duplicar');const bDel=el('button','btn','Remover');
@@ -1127,6 +1164,9 @@ function renderInspector(){
     insp.appendChild(field('Texto do card',s.cardTexto,set('cardTexto'),'',true));
     insp.appendChild(slider('Tamanho do card',50,110,1,s.cardScale==null?100:s.cardScale,v=>v+'%',v=>{s.cardScale=v;upd();}));
     cardColorField(insp,s,upd,'#1b1714');
+  } else if(s.tipo==='imgcentral'){
+    insp.appendChild(field('Título (acima da imagem)',s.titulo,set('titulo'),'',true));
+    imgCentralPanel(insp,s,upd);
   }
   capaStylePanel(insp,s,upd);
   wordHighlightPanel(insp,s,upd);
