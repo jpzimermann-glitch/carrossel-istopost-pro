@@ -105,6 +105,8 @@ Você NÃO depende de scripts pra renderizar: a entrega é o **Carousel Studio**
    ```
    (bloco vazio = abre no carrossel-demo; bloco preenchido = abre no carrossel gerado.)
 
+   **Privacidade (workspace):** se o usuário estiver num projeto/cliente que exige sigilo, injete também o nome do projeto no bloco `<script id="deck-ws" type="text/plain"></script>` (sanitizado p/ `[a-z0-9_-]`). Isso isola no navegador a sessão salva, as marcas e os presets daquele projeto — evita que um editor "limpo" restaure o carrossel de outro cliente. A chave da API do Gemini permanece global. Ver `references/05-template-html.md`.
+
 3. **Apresente o `carrossel-editor.html`** ao usuário. Ele abre no navegador já no carrossel, e ali, sem código, dá pra: editar textos; trocar fonte/peso/cor/tamanho/espaçamento; posicionar (grade 3×3); destacar palavras na cor de acento; imagem de fundo com posição/zoom/opacidade/espelho e carrossel infinito; sombra/overlay; cor e padrão de fundo; cantos editáveis com tokens `{n}`, `{total}`, `{handle}`; bolinhas; ícones; logo de perfil. E **Exportar ZIP** com os PNGs em 1080×1350 (2x).
 
 4. Quer PNGs na hora? Oriente: abrir o editor e clicar em **Exportar ZIP** (escolhe a pasta onde suporta).

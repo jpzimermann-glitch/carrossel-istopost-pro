@@ -28,14 +28,24 @@ Você monta um `slides.json` e **injeta** no editor (não há motor de build).
 
 ## Injeção (a entrega)
 ```python
-import json
+import json, re
 tpl = open(SKILL_DIR + "/assets/carousel-studio.html", encoding="utf-8").read()
 dados = json.dumps(MEU_DICT, ensure_ascii=False)
 tpl = tpl.replace('<script id="deck-data" type="application/json"></script>',
                   '<script id="deck-data" type="application/json">' + dados + '</script>')
+# Workspace (privacidade): isola no navegador os dados deste projeto/cliente dos demais.
+# Preencha WORKSPACE com um nome curto do projeto/cliente quando o usuário informar um.
+# Sanitize p/ [a-z0-9_-]; deixe "" pra usar o padrão (comportamento antigo).
+WORKSPACE = "".join(c for c in (NOME_PROJETO or "").lower() if c.isalnum() or c in "-_")[:40]
+if WORKSPACE:
+    tpl = tpl.replace('<script id="deck-ws" type="text/plain"></script>',
+                      '<script id="deck-ws" type="text/plain">' + WORKSPACE + '</script>')
 open(PASTA_SAIDA + "/carrossel-editor.html", "w", encoding="utf-8").write(tpl)
 ```
 Apresente o `carrossel-editor.html`. Tudo (edição, fontes, cores, posicionamento, imagem de fundo, cantos, logo e **Exportar ZIP**) acontece dentro dele. NÃO use `build_carrossel.py` nem `editor_template.html` — foram removidos.
+
+### Workspace (privacidade multi-projeto)
+O editor roda via `file://` e o navegador compartilha o armazenamento entre todos os arquivos `file://`. Sem workspace, um editor "limpo" pode restaurar a última sessão de OUTRO projeto. Preencha o bloco `deck-ws` com um nome de projeto/cliente sempre que o usuário informar um — isso isola sessão salva, marcas e presets daquele projeto. A chave da API do Gemini permanece global (é do usuário). Alternativa: abrir `carrossel-editor.html?ws=nome` na URL.
 
 ## Tipos de card (estilo notícia/anúncio)
 - `tweet`: card de post/rede social.

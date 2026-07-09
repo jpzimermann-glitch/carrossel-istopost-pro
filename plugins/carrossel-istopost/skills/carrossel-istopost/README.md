@@ -40,3 +40,6 @@ Todas open-source (Google Fonts via Fontsource — licenças OFL/Apache), embuti
 
 ## Os 8 kits
 editorial · tech · brutalist · serif-classic · clean-sans · warm · playful · corporate
+
+## Privacidade multi-projeto (v2.0.13)
+O editor roda via `file://` e o navegador compartilha o armazenamento entre todos os arquivos `file://`. Antes, um editor "limpo" podia restaurar a última sessão de outro projeto/cliente. Agora há **workspaces**: a sessão salva, as marcas e os presets são isolados por projeto. Informe o nome do projeto e a skill injeta no bloco `deck-ws` (ou abra o editor com `?ws=nome` na URL). A chave da API do Gemini continua global (é do usuário, não do cliente). O botão **"Nova sessão"** recomeça o carrossel atual sem afetar os outros. Para sigilo máximo, use também uma **janela anônima**.
