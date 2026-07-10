@@ -652,6 +652,11 @@ function imgCentralHtml(s){
   }
   return '<div class="cimg-wrap" style="width:'+size+'%;max-width:100%"><img src="'+s.ci_uri+'" style="display:block;width:100%;border-radius:'+rad+'px;'+border+sh+'object-fit:cover"></div>';
 }
+/* Imagem de destaque opcional (funciona em qualquer tipo de slide de texto) */
+function imgDestaqueHtml(s){
+  if(!(s.imgOn && s.ci_uri)) return '';
+  return imgCentralHtml(s)+(s.legenda?`<div class="ci-cap">${hlText(s.legenda,s.hlS)}</div>`:'');
+}
 function isDark(hex){hex=String(hex||'').replace('#','');if(hex.length===3)hex=hex.split('').map(c=>c+c).join('');const r=parseInt(hex.substr(0,2),16),g=parseInt(hex.substr(2,2),16),b=parseInt(hex.substr(4,2),16);if(isNaN(r))return false;return (0.2126*r+0.7152*g+0.0722*b)<140;}
 function cardColorField(insp,s,upd,def){
   insp.appendChild(glabel('Cor do card'));
@@ -669,12 +674,12 @@ function slideInner(s, idx, total){
   const shade='';
   let c='';
   switch(s.tipo){
-    case 'capa': c=`<div class="content"><div class="kicker">${esc(s.kicker)}</div><div class="h1">${hlText(s.titulo,s.hlT)}</div>${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}</div>`;break;
-    case 'passo': c=`<div class="content"><div class="rule"></div><div class="h2">${hlText(s.titulo,s.hlT)}</div>${s.corpo?`<div class="body">${hlText(s.corpo,s.hlS)}</div>`:''}${(s.imgOn&&s.ci_uri)?imgCentralHtml(s):''}${(s.imgOn&&s.ci_uri&&s.legenda)?`<div class="ci-cap">${hlText(s.legenda,s.hlS)}</div>`:''}</div>`;break;
-    case 'insight': c=`<div class="content"><div class="rule"></div><div class="quote">${hlText(s.texto,s.hlT)}</div>${s.fonte?`<div class="source">${hlText(s.fonte,s.hlS)}</div>`:''}</div>`;break;
-    case 'lista': c=`<div class="content"><div class="h2">${hlText(s.titulo,s.hlT)}</div><ul class="itens">${(s.itens||[]).map(it=>`<li>${esc(it)}</li>`).join('')}</ul></div>`;break;
-    case 'stat': c=`<div class="content"><div class="stat">${hlText(s.numero,s.hlT)}</div><div class="rotulo">${esc(s.rotulo)}</div>${s.corpo?`<div class="body">${hlText(s.corpo,s.hlS)}</div>`:''}</div>`;break;
-    case 'cta': c=`<div class="content"><div class="cta">${hlText(s.titulo,s.hlT)}</div>${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${s.acao?`<div class="acao">${esc(s.acao)}</div>`:''}</div>`;break;
+    case 'capa': c=`<div class="content"><div class="kicker">${esc(s.kicker)}</div><div class="h1">${hlText(s.titulo,s.hlT)}</div>${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
+    case 'passo': c=`<div class="content"><div class="rule"></div><div class="h2">${hlText(s.titulo,s.hlT)}</div>${s.corpo?`<div class="body">${hlText(s.corpo,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
+    case 'insight': c=`<div class="content"><div class="rule"></div><div class="quote">${hlText(s.texto,s.hlT)}</div>${s.fonte?`<div class="source">${hlText(s.fonte,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
+    case 'lista': c=`<div class="content"><div class="h2">${hlText(s.titulo,s.hlT)}</div><ul class="itens">${(s.itens||[]).map(it=>`<li>${esc(it)}</li>`).join('')}</ul>${imgDestaqueHtml(s)}</div>`;break;
+    case 'stat': c=`<div class="content"><div class="stat">${hlText(s.numero,s.hlT)}</div><div class="rotulo">${esc(s.rotulo)}</div>${s.corpo?`<div class="body">${hlText(s.corpo,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
+    case 'cta': c=`<div class="content"><div class="cta">${hlText(s.titulo,s.hlT)}</div>${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${s.acao?`<div class="acao">${esc(s.acao)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
     case 'tweet': c=`<div class="content cardcontent">${s.kicker?`<div class="kicker">${esc(s.kicker)}</div>`:''}${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${renderTweet(s)}</div>`;break;
     case 'nota': c=`<div class="content cardcontent">${s.kicker?`<div class="kicker">${esc(s.kicker)}</div>`:''}${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${renderNota(s)}</div>`;break;
     case 'imgcentral': c=`<div class="content">${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${imgCentralHtml(s)}${s.legenda?`<div class="ci-cap">${hlText(s.legenda,s.hlS)}</div>`:''}</div>`;break;
@@ -1161,8 +1166,6 @@ function renderInspector(){
   } else if(s.tipo==='passo'){
     insp.appendChild(field('Título',s.titulo,set('titulo'),'',true));
     insp.appendChild(field('Corpo',s.corpo,set('corpo'),'',true));
-    insp.appendChild(chk('Adicionar imagem de destaque', !!s.imgOn, v=>{s.imgOn=v||undefined;upd();renderInspector();}));
-    if(s.imgOn){ imgCentralPanel(insp,s,upd); insp.appendChild(field('Legenda da imagem (opcional)',s.legenda,set('legenda'),'Ex.: crédito da foto, local, data.')); }
   } else if(s.tipo==='insight'){
     insp.appendChild(field('Frase',s.texto,set('texto'),'',true));
     insp.appendChild(field('Fonte / atribuição',s.fonte,set('fonte')));
@@ -1210,6 +1213,10 @@ function renderInspector(){
     insp.appendChild(field('Título (acima da imagem)',s.titulo,set('titulo'),'',true));
     imgCentralPanel(insp,s,upd);
     insp.appendChild(field('Legenda / fonte (abaixo da imagem)',s.legenda,set('legenda'),'Ex.: crédito da foto, local, data.'));
+  }
+  if(s.tipo!=='imgcentral'){
+    insp.appendChild(chk('Adicionar imagem de destaque', !!s.imgOn, v=>{s.imgOn=v||undefined;upd();renderInspector();}));
+    if(s.imgOn){ imgCentralPanel(insp,s,upd); insp.appendChild(field('Legenda da imagem (opcional)',s.legenda,set('legenda'),'Ex.: crédito da foto, local, data.')); }
   }
   capaStylePanel(insp,s,upd);
   wordHighlightPanel(insp,s,upd);
