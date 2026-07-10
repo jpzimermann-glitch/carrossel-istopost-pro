@@ -9,7 +9,7 @@
       "name": "carrossel-istopost",
       "source": "./plugins/carrossel-istopost",
       "description": "Versão personalizada (IstoPost) — cria carrosséis de Instagram prontos pra publicar e entrega o editor Carousel Studio turbinado: presets de estilo, salvar marca, cor automática, contador, efeitos de fundo, desfazer/refazer, biblioteca de modelos, entrada por hex e exportação em ZIP. Baseado no carrossel-pro de Helio Arreche (MIT).",
-      "version": "2.0.15",
+      "version": "2.0.16",
       "author": {
         "name": "João Paulo Zimermann"
       },
