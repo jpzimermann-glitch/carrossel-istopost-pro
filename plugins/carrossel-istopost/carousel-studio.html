@@ -568,6 +568,8 @@ function applyFonts(){
   document.documentElement.style.setProperty('--f-body', "'"+k.body+"',system-ui,sans-serif");
   document.documentElement.style.setProperty('--f-mono', "'"+k.mono+"',ui-monospace,monospace");
   document.documentElement.style.setProperty('--f-serif', "'"+k.serif+"',Georgia,serif");
+  const _g=data.g||{};
+  if(_g.metaFont){ document.documentElement.style.setProperty('--f-mono', "'"+_g.metaFont+"',ui-monospace,monospace"); loadFont(_g.metaFont); }
 }
 const _CDEF={accent:'#BE4D2E',bg:'#E9E1D2',fg:'#1B1714',cream:'#F7F2E8'};
 let _cpKey=null;
@@ -1011,6 +1013,7 @@ function decorate(e,s,idx,total){
     if(inner==null||inner==='')return;
     const m=document.createElement('div');m.className='cmark'+(g.cornerGlass?' cglass':'')+(g.cornerBorder?' cborder':'');
     m.style.fontSize=fs+'px';m.style.opacity=op;
+    if(g.metaColor)m.style.color=g.metaColor;
     if(code==='se'){m.style.top=inset+'px';m.style.left=inset+'px';}
     else if(code==='sd'){m.style.top=inset+'px';m.style.right=inset+'px';}
     else if(code==='ie'){m.style.bottom=inset+'px';m.style.left=inset+'px';}
@@ -1105,6 +1108,9 @@ function globalStylePanel(insp){
   box.appendChild(slider('Opacidade',0,100,1,g.cornerOpacity,v=>v+'%',v=>{g.cornerOpacity=v;renderMain();renderRail();}));
   box.appendChild(chk('Estilo glass (glassmorphism)',g.cornerGlass,v=>{g.cornerGlass=v;renderMain();renderRail();}));
   box.appendChild(chk('Borda minimalista',g.cornerBorder,v=>{g.cornerBorder=v;renderMain();renderRail();}));
+  box.appendChild(glabel('Fonte dos detalhes (@, cantos, rótulos, botão)'));
+  box.appendChild(fontSelect(g.metaFont||(KITS[data.kit]||KITS.editorial).mono,v=>{g.metaFont=v;applyFonts();renderMain();renderRail();saveSoon();}));
+  colorField(box,'Cor dos detalhes (@ e cantos)',g,'metaColor','#ffffff',()=>{renderMain();renderRail();saveSoon();});
   box.appendChild(glabel('Ícone — canto inferior direito'));
   box.appendChild(iconPicker(g.cornerIcon,v=>{g.cornerIcon=v;renderMain();renderRail();renderInspector();}));
   box.appendChild(el('div','divider'));
