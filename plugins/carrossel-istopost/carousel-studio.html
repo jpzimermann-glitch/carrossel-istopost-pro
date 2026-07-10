@@ -965,7 +965,7 @@ function overlayGradient(style){
     case 'base': return 'linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.65))';
     case 'topo': return 'linear-gradient(180deg,rgba(0,0,0,.78),rgba(0,0,0,0))';
     case 'baixo': return 'linear-gradient(0deg,rgba(0,0,0,.82),rgba(0,0,0,0))';
-    case 'vinheta': return 'radial-gradient(ellipse at center,rgba(0,0,0,0) 38%,rgba(0,0,0,.78))';
+    case 'vinheta': return svgPatternURI("<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' preserveAspectRatio='none' viewBox='0 0 100 100'><defs><radialGradient id='v' cx='50%' cy='50%' r='72%'><stop offset='38%' stop-color='#000' stop-opacity='0'/><stop offset='100%' stop-color='#000' stop-opacity='0.78'/></radialGradient></defs><rect width='100' height='100' fill='url(#v)'/></svg>");
     case 'solido': return 'rgba(0,0,0,.55)';
     default: return '';
   }
@@ -1007,7 +1007,7 @@ function decorate(e,s,idx,total){
   if(ps){const p=document.createElement('div');p.className='cpattern';p.style.backgroundImage=ps[0];p.style.backgroundSize=ps[1];p.style.backgroundRepeat='repeat';e.insertBefore(p,e.firstChild);}
   const ostyle = s.overlayStyle || ((s.bg_uri||(data.infinite&&data.infiniteUri))?'base':'none');
   const grad=overlayGradient(ostyle);
-  if(grad){const sh=document.createElement('div');sh.className='bgshade';sh.style.background=grad;sh.style.opacity=(s.overlayOpacity==null?100:s.overlayOpacity)/100;e.insertBefore(sh,e.firstChild);}
+  if(grad){const sh=document.createElement('div');sh.className='bgshade';sh.style.background=grad;sh.style.opacity=(s.overlayOpacity==null?100:s.overlayOpacity)/100;if(ostyle==='vinheta'){sh.style.backgroundSize='100% 100%';sh.style.backgroundRepeat='no-repeat';}e.insertBefore(sh,e.firstChild);}
   const inset=g.cornerInset,fs=g.cornerSize,op=g.cornerOpacity/100;
   function badge(code,inner){
     if(inner==null||inner==='')return;
