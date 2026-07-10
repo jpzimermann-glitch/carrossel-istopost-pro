@@ -1072,9 +1072,9 @@ function fundoPanel(insp,s){
   const rm=el('button','btn','<svg class="uimi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>Usar cor da paleta');rm.style.marginTop='8px';rm.onclick=()=>{delete s.bgColor;renderMain();renderRail();renderInspector();};box.appendChild(rm);
   box.appendChild(glabel('Padrão sobre o fundo'));
   box.appendChild(selOf(PATTERN_OPTS,s.pattern||'none',v=>{s.pattern=v==='none'?undefined:v;renderMain();renderRail();}));
-  const applyAllP=el('button','btn','<svg class="uimi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Aplicar este padrão a todos os slides');
+  const applyAllP=el('button','btn','<svg class="uimi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Aplicar cor + padrão de fundo a todos os slides');
   applyAllP.style.marginTop='8px';applyAllP.style.width='100%';
-  applyAllP.onclick=()=>{const v=s.pattern;data.slides.forEach(sl=>{if(v)sl.pattern=v;else delete sl.pattern;});renderMain();renderRail();saveSoon();toast(v?'Padrão aplicado a todos os slides':'Padrão removido de todos os slides');};
+  applyAllP.onclick=()=>{const v=s.pattern,c=s.bgColor;data.slides.forEach(sl=>{if(v)sl.pattern=v;else delete sl.pattern;if(c)sl.bgColor=c;else delete sl.bgColor;});renderMain();renderRail();saveSoon();toast('Cor e padrão de fundo aplicados a todos os slides');};
   box.appendChild(applyAllP);
   box.appendChild(glabel('Efeito de fundo (cor de acento)'));
   box.appendChild(selOf(BGFX_OPTS,s.bgFx||'none',v=>{s.bgFx=v==='none'?undefined:v;renderMain();renderRail();}));
