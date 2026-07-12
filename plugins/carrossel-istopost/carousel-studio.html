@@ -658,7 +658,9 @@ function imgCentralHtml(s){
 function imgDestaqueHtml(s){
   if(!(s.imgOn && s.ci_uri)) return '';
   // Legenda NÃO herda o destaque de palavra do corpo/subtítulo (hlS é do texto principal).
-  return imgCentralHtml(s)+(s.legenda?`<div class="ci-cap">${hlText(s.legenda,[])}</div>`:'');
+  const cap=s.legenda?`<div class="ci-cap">${hlText(s.legenda,[])}</div>`:'';
+  // Bloco em linha própria: garante que a imagem caia ABAIXO do conteúdo (ex.: botão curto do CTA).
+  return `<div style="display:block;width:100%">`+imgCentralHtml(s)+cap+`</div>`;
 }
 function isDark(hex){hex=String(hex||'').replace('#','');if(hex.length===3)hex=hex.split('').map(c=>c+c).join('');const r=parseInt(hex.substr(0,2),16),g=parseInt(hex.substr(2,2),16),b=parseInt(hex.substr(4,2),16);if(isNaN(r))return false;return (0.2126*r+0.7152*g+0.0722*b)<140;}
 function cardColorField(insp,s,upd,def){
