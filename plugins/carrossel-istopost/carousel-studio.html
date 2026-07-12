@@ -675,13 +675,14 @@ function slideInner(s, idx, total){
   const ghostHtml=s.ghost?`<div class="ghost">${esc(typeof s.ghost==='string'?s.ghost:String(idx+1).padStart(2,'0'))}</div>`:'';
   const shade='';
   let c='';
+  const kick=s.kicker?`<div class="kicker">${esc(s.kicker)}</div>`:'';
   switch(s.tipo){
     case 'capa': c=`<div class="content"><div class="kicker">${esc(s.kicker)}</div><div class="h1">${hlText(s.titulo,s.hlT)}</div>${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
-    case 'passo': c=`<div class="content"><div class="rule"></div><div class="h2">${hlText(s.titulo,s.hlT)}</div>${s.corpo?`<div class="body">${hlText(s.corpo,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
-    case 'insight': c=`<div class="content"><div class="rule"></div><div class="quote">${hlText(s.texto,s.hlT)}</div>${s.fonte?`<div class="source">${hlText(s.fonte,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
-    case 'lista': c=`<div class="content"><div class="h2">${hlText(s.titulo,s.hlT)}</div><ul class="itens">${(s.itens||[]).map(it=>`<li>${esc(it)}</li>`).join('')}</ul>${imgDestaqueHtml(s)}</div>`;break;
-    case 'stat': c=`<div class="content"><div class="stat">${hlText(s.numero,s.hlT)}</div><div class="rotulo">${esc(s.rotulo)}</div>${s.corpo?`<div class="body">${hlText(s.corpo,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
-    case 'cta': c=`<div class="content"><div class="cta">${hlText(s.titulo,s.hlT)}</div>${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${s.acao?`<div class="acao">${esc(s.acao)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
+    case 'passo': c=`<div class="content">${kick}<div class="rule"></div><div class="h2">${hlText(s.titulo,s.hlT)}</div>${s.corpo?`<div class="body">${hlText(s.corpo,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
+    case 'insight': c=`<div class="content">${kick}<div class="rule"></div><div class="quote">${hlText(s.texto,s.hlT)}</div>${s.fonte?`<div class="source">${hlText(s.fonte,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
+    case 'lista': c=`<div class="content">${kick}<div class="h2">${hlText(s.titulo,s.hlT)}</div><ul class="itens">${(s.itens||[]).map(it=>`<li>${esc(it)}</li>`).join('')}</ul>${imgDestaqueHtml(s)}</div>`;break;
+    case 'stat': c=`<div class="content">${kick}<div class="stat">${hlText(s.numero,s.hlT)}</div><div class="rotulo">${esc(s.rotulo)}</div>${s.corpo?`<div class="body">${hlText(s.corpo,s.hlS)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
+    case 'cta': c=`<div class="content">${kick}<div class="cta">${hlText(s.titulo,s.hlT)}</div>${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${s.acao?`<div class="acao">${esc(s.acao)}</div>`:''}${imgDestaqueHtml(s)}</div>`;break;
     case 'tweet': c=`<div class="content cardcontent">${s.kicker?`<div class="kicker">${esc(s.kicker)}</div>`:''}${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${renderTweet(s)}</div>`;break;
     case 'nota': c=`<div class="content cardcontent">${s.kicker?`<div class="kicker">${esc(s.kicker)}</div>`:''}${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${s.sub?`<div class="sub">${hlText(s.sub,s.hlS)}</div>`:''}${renderNota(s)}</div>`;break;
     case 'imgcentral': c=`<div class="content">${s.titulo?`<div class="h2">${hlText(s.titulo,s.hlT)}</div>`:''}${imgCentralHtml(s)}${s.legenda?`<div class="ci-cap">${hlText(s.legenda,s.hlS)}</div>`:''}</div>`;break;
@@ -700,7 +701,17 @@ function styleSlide(el2, s){
   const sc=(fx.scale||100)/100;
   if(content){content.style.textAlign=TA[fx.align]||'left';content.style.maxWidth='92%';}
   if(kicker){ kicker.style.marginBottom=(fx.gap*sc)+'px';
-    if(fx.badge){kicker.style.display='inline-block';kicker.style.background='var(--accent)';kicker.style.color='var(--bg)';kicker.style.padding='12px 22px';kicker.style.borderRadius='999px';} }
+    const ks=(fx.kSize==null?30:fx.kSize)*sc;
+    kicker.style.fontSize=ks+'px';
+    if(fx.kColor)kicker.style.color=fx.kColor;
+    if(fx.badge){
+      kicker.style.display='inline-block';
+      kicker.style.background=fx.kTarjaColor||'var(--accent)';
+      kicker.style.color=fx.kColor||'var(--bg)';
+      kicker.style.padding=(ks*0.42)+'px '+(ks*0.7)+'px';
+      kicker.style.borderRadius=(fx.kTarjaRound==null?8:fx.kTarjaRound)+'px';
+      kicker.style.lineHeight='1';
+    } }
   if(h1){ h1.style.fontSize=(fx.tSize*sc)+'px'; h1.style.fontWeight=fx.tWeight; h1.style.lineHeight=fx.lh; h1.style.letterSpacing=fx.tSpace+'em';
     if(fx.tFont){h1.style.fontFamily="'"+fx.tFont+"',system-ui,sans-serif";loadFont(fx.tFont);} if(fx.tColor)h1.style.color=fx.tColor; }
   if(sub){ sub.style.fontSize=(fx.sSize*sc)+'px'; sub.style.fontWeight=fx.sWeight; sub.style.letterSpacing=fx.sSpace+'em'; sub.style.marginTop=(fx.gap*sc)+'px'; sub.style.maxWidth='100%';
@@ -1170,7 +1181,6 @@ function renderInspector(){
     return;
   }
   if(s.tipo==='capa'){
-    insp.appendChild(field('Kicker (rótulo)',s.kicker,set('kicker')));
     insp.appendChild(field('Título',s.titulo,set('titulo'),'',true));
     insp.appendChild(field('Subtítulo',s.sub,set('sub'),'',true));
   } else if(s.tipo==='passo'){
@@ -1225,6 +1235,7 @@ function renderInspector(){
     insp.appendChild(field('Legenda / fonte (abaixo da imagem)',s.legenda,set('legenda'),'Ex.: crédito da foto, local, data.'));
   }
   if(s.tipo!=='imgcentral'){
+    insp.appendChild(field('Kicker (rótulo)',s.kicker,set('kicker'),'Rótulo curto acima do título. Deixe vazio pra esconder.'));
     insp.appendChild(chk('Adicionar imagem de destaque', !!s.imgOn, v=>{s.imgOn=v||undefined;upd();renderInspector();}));
     if(s.imgOn){ imgCentralPanel(insp,s,upd); insp.appendChild(field('Legenda da imagem (opcional)',s.legenda,set('legenda'),'Ex.: crédito da foto, local, data.')); }
   }
@@ -1265,7 +1276,16 @@ function capaStylePanel(insp,s,upd){
   box.appendChild(segmented([['esq','Esq'],['centro','Centro'],['dir','Dir']],fx.align,v=>{fx.align=v;upd();renderInspector();}));
   box.appendChild(chk('Glass ao redor do conteúdo',fx.glass,v=>{fx.glass=v;if(v)fx.card=false;upd();renderInspector();}));
   box.appendChild(chk('Card de texto',fx.card,v=>{fx.card=v;if(v)fx.glass=false;upd();renderInspector();}));
-  box.appendChild(chk('Badge no label',fx.badge,v=>{fx.badge=v;upd();}));
+  box.appendChild(el('div','divider'));
+  box.appendChild(glabel('Rótulo (kicker)'));
+  box.appendChild(slider('Tamanho do rótulo',16,90,1,fx.kSize==null?30:fx.kSize,v=>v+'px',v=>{fx.kSize=v;upd();}));
+  box.appendChild(glabel('Cor do rótulo'));box.appendChild(swatches(fx.kColor,v=>{fx.kColor=v;upd();renderInspector();}));
+  box.appendChild(chk('Tarja (faixa colorida atrás do texto)',fx.badge,v=>{fx.badge=v;upd();renderInspector();}));
+  if(fx.badge){
+    box.appendChild(glabel('Cor da tarja'));box.appendChild(swatches(fx.kTarjaColor,v=>{fx.kTarjaColor=v;upd();renderInspector();}));
+    box.appendChild(slider('Arredondamento da tarja',0,50,1,fx.kTarjaRound==null?8:fx.kTarjaRound,v=>v+'px',v=>{fx.kTarjaRound=v;upd();}));
+  }
+  box.appendChild(el('div','divider'));
   box.appendChild(slider('Escala global',50,150,1,fx.scale,v=>v+'%',v=>{fx.scale=v;upd();}));
   box.appendChild(slider('Espaço entre label/título/subtítulo',0,80,1,fx.gap,v=>v+'px',v=>{fx.gap=v;upd();}));
   box.appendChild(el('div','divider'));
