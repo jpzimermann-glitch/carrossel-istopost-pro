@@ -719,6 +719,14 @@ function styleSlide(el2, s){
     if(fx.tFont){h1.style.fontFamily="'"+fx.tFont+"',system-ui,sans-serif";loadFont(fx.tFont);} if(fx.tColor)h1.style.color=fx.tColor; }
   if(sub){ sub.style.fontSize=(fx.sSize*sc)+'px'; sub.style.fontWeight=fx.sWeight; sub.style.letterSpacing=fx.sSpace+'em'; sub.style.marginTop=(fx.gap*sc)+'px'; sub.style.maxWidth='100%';
     if(fx.sFont){sub.style.fontFamily="'"+fx.sFont+"',system-ui,sans-serif";loadFont(fx.sFont);} if(fx.sColor)sub.style.color=fx.sColor; }
+  // Itens do slide tipo Lista: tamanho, entrelinha e espaçamento (guardas: decks antigos ficam no padrão do CSS)
+  if(fx.liSize!=null||fx.liLh!=null||fx.liGap!=null){
+    el2.querySelectorAll('ul.itens li').forEach(li=>{
+      if(fx.liSize!=null) li.style.fontSize=fx.liSize+'px';
+      if(fx.liLh!=null) li.style.lineHeight=fx.liLh;
+      if(fx.liGap!=null) li.style.padding=fx.liGap+'px 0';
+    });
+  }
   if(content&&(fx.glass||fx.card)){ content.style.padding='54px'; content.style.borderRadius='26px';
     if(fx.glass){content.style.background='rgba(255,255,255,.14)';content.style.backdropFilter='blur(16px)';content.style.webkitBackdropFilter='blur(16px)';content.style.border='1px solid rgba(255,255,255,.3)';}
     if(fx.card){const dark=!!s.bg_uri;content.style.background=dark?'rgba(12,12,15,.62)':'rgba(0,0,0,.06)';if(dark)content.style.color='#fff';} }
@@ -1195,6 +1203,12 @@ function renderInspector(){
   } else if(s.tipo==='lista'){
     insp.appendChild(field('Título',s.titulo,set('titulo'),'',true));
     insp.appendChild(field('Itens (um por linha)',(s.itens||[]).join('\n'),v=>{s.itens=v.split('\n').filter(x=>x.trim()!=='');upd();},'Cada linha vira um item com seta.',true));
+    { const fxl=ensureFx(s);
+      insp.appendChild(glabel('Ajuste dos itens (pra caber tudo)'));
+      insp.appendChild(slider('Tamanho dos itens',20,80,1,fxl.liSize==null?44:fxl.liSize,v=>v+'px',v=>{fxl.liSize=v;upd();}));
+      insp.appendChild(slider('Entrelinha dos itens',0.9,2,0.05,fxl.liLh==null?1.3:fxl.liLh,v=>v.toFixed(2),v=>{fxl.liLh=v;upd();}));
+      insp.appendChild(slider('Espaço entre itens',0,60,1,fxl.liGap==null?28:fxl.liGap,v=>v+'px',v=>{fxl.liGap=v;upd();}));
+    }
   } else if(s.tipo==='stat'){
     insp.appendChild(field('Número / destaque',s.numero,set('numero'),'ex.: 90min, 3x, +200'));
     insp.appendChild(field('Rótulo',s.rotulo,set('rotulo')));
