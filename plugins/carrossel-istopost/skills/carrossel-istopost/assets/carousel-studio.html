@@ -1043,7 +1043,7 @@ function decorate(e,s,idx,total){
     m.innerHTML=inner;e.appendChild(m);
   }
   const tok=(t)=>esc(String(t||'')).replace(/\{n\}/g,String(idx+1).padStart(2,'0')).replace(/\{total\}/g,String(total)).replace(/\{handle\}/g,esc(data.handle||''));
-  if(g.showCorners){
+  if(g.showCorners && !s.hideCorners){
     ['se','sd','ie','id'].forEach(code=>{
       if(isLast && code==='id')return; // no ultimo slide o canto inf.dir é controlado só pelo "Ícone do último slide" (— = sem ícone)
       if(isLast && code==='ie' && g.lastEsq)return;
@@ -1053,12 +1053,12 @@ function decorate(e,s,idx,total){
       if(inner)badge(code,inner);
     });
   }
-  if(isLast){
+  if(isLast && !s.hideCorners){
     const ic=iconSvg(g.lastIcon,fs);
     if(g.lastDir||ic)badge('id','<span class="cwrap">'+esc(g.lastDir||'')+ic+'</span>');
     if(g.lastEsq)badge('ie',esc(g.lastEsq));
   }
-  if(g.dots && total>1){
+  if(g.dots && total>1 && !s.hideCorners){
     const d=document.createElement('div');d.className='cdots';d.style.bottom=Math.max(40,inset-10)+'px';d.style.opacity=op;
     for(let k=0;k<total;k++){const dot=document.createElement('span');dot.className='cdot'+(k===idx?' on':'');d.appendChild(dot);}
     e.appendChild(d);
@@ -1180,6 +1180,8 @@ function renderInspector(){
   insp.appendChild(el('div','divider'));
   const upd=()=>{renderMain();renderRail();};
   const set=k=>v=>{s[k]=v;upd();};
+  insp.appendChild(chk('Esconder cantos/rodapé neste slide (nº, @, bolinhas)', !!s.hideCorners, v=>{s.hideCorners=v||undefined;upd();}));
+  insp.appendChild(el('div','divider'));
   if(s.tipo==='imagem'){
     insp.appendChild(el('p','muted','Slide de imagem pura — a capa gerada pela IA já vem com texto e elementos embutidos. Edite com IA, troque ou ajuste a imagem abaixo.'));
     const edBtn=el('button','btn accent','<svg class="uimi" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Editar esta capa com IA');
